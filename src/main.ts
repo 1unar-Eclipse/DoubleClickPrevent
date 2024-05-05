@@ -21,41 +21,20 @@ let optDebounce = mod.addNumberSetting(
 );
 
 // limit
-let lastValidClickTimeLeft: number = 0, // time of the last valid click
-    lastValidClickTimeRight: number = 0;
+let lastValidClickTime: number[] = [0, 0];
     
 client.on("click", e => {
     // return cases:
     if(!mod.isEnabled()) return; // module off
     if(!e.isDown) return; // button lifts
+    if(!(e.button == MouseButton.Left || e.button == MouseButton.Right)) return; // only let left and right clicks through
 
-    if(e.button == MouseButton.Left) { // left click case
-        let clickTimeLeft = Date.now();
-        // if the time of the last valid click plus the interval (the max time after the click) is greater than the current time [if the click is within debounce time],
-        if(lastValidClickTimeLeft + optDebounce.getValue() > clickTimeLeft) {
-            // cancel the click
-            e.cancel = true;
-            // clientMessage("Cancelled!");
-        }
-        // otherwise [if the click is not within debounce time],
-        else {
-            // do not cancel the click and update the valid timestamp
-            e.cancel = false;
-            lastValidClickTimeLeft = clickTimeLeft;
-            // clientMessage("Not cancelled.");
-        }
+    let clickTime = Date.now();
+    // if the time of the last valid click plus the interval (the max time after the click) is greater than the current time [if the click is within debounce time],
+    if(lastValidClickTime[e.button - 1] > clickTime) { // note: e.button - 1 is always 0 or 1
+        e.cancel = true; // cancel the click
     }
-
-    if(e.button == MouseButton.Right) { // right click case
-        let clickTimeRight = Date.now();
-        if(lastValidClickTimeRight + optDebounce.getValue() > clickTimeRight) {
-            e.cancel = true;
-            // clientMessage("Cancelled!");
-        }
-        else {
-            e.cancel = false;
-            lastValidClickTimeRight = clickTimeRight;
-            // clientMessage("Not cancelled.");
-        }
+    else { // otherwise [if the click is not within debounce time],
+        lastValidClickTime[e.button - 1] = clickTime; // update the valid timestamp (not cancelled in case other plugins mess with it)
     }
 });
