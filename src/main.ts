@@ -4,7 +4,7 @@
 let mod = new Module(
     "DoubleClickPrevent",
     "Double Click Prevent",
-    "Adds a window after clicking where subsequent ones are ignored. (Only works with mouse buttons)",
+    "Adds a window after clicking where subsequent clicks are ignored. (Only works with mouse buttons)",
     KeyCode.None
 );
 client.getModuleManager().registerModule(mod);
