@@ -31,7 +31,7 @@ client.on("click", e => {
 
     let clickTime = Date.now();
     // if the time of the last valid click plus the interval (the max time after the click) is greater than the current time [if the click is within debounce time],
-    if(lastValidClickTime[e.button - 1] > clickTime) { // note: e.button - 1 is always 0 or 1
+    if(lastValidClickTime[e.button - 1] + optDebounce.getValue() > clickTime) { // note: e.button - 1 is always 0 or 1
         e.cancel = true; // cancel the click
     }
     else { // otherwise [if the click is not within debounce time],
