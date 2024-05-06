@@ -1,2 +1,2 @@
 # DoubleClickPrevent
- A Latite plugin that allows removal of double clicks
+ A Latite plugin that allows for filtering clicks in multiple ways
