@@ -32,11 +32,11 @@ client.getModuleManager().registerModule(modCPSLimiter);
 let clicks = [0, 0];
 
 client.on("click", e => {
-
     if(!modCPSLimiter.isEnabled()) return; // module off
     if(!e.isDown) return; // button lifts
     if(!(e.button == MouseButton.Left || e.button == MouseButton.Right)) return; // only let left and right clicks through
     if(e.cancel) return; // if the click wasn't cancelled from some other plugin
+    if(game.isInUI()) return;
 
     let button = e.button - 1;
     if(clicks[button] >= optionLimit.getValue()) { // if the amount of stored clicks is above the limit
