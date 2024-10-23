@@ -9,10 +9,14 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.2",
+    "@types/node": "^22.7.9",
     "rollup": "^3.25.3",
     "rollup-plugin-combine": "^2.1.1",
     "rollup-plugin-match": "^1.0.0",
     "tslib": "^2.6.0",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@latitescripting/latiteapi": "^2.1.1"
   }
 }
